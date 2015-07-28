@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<title>绑定寝室</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/bootstrap.min.css">
+	<script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<script src="{{STATIC_URL}}js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	var dongqu=['东八舍','东二舍','东六舍',
+'东七舍','东三舍','东四舍','东五舍','东一舍',
+'附中实验楼','附中主楼','教七舍','南二舍',
+'南三舍','南一舍','沁苑东九舍','沁苑东十二舍',
+'沁苑东十三舍','沁苑东十舍','沁苑东十一舍'];
+
+var xiqu=['西八舍','西二舍','西九舍',
+'西六舍','西七舍','西三舍','西十二舍',
+'西十六舍','西十三舍','西十四舍','西十五舍',
+'西十一舍','西五舍','西一舍'];
+
+var yunyuanerqi=['韵苑13栋','韵苑14栋',
+'韵苑15栋','韵苑16栋','韵苑17栋','韵苑18栋',
+'韵苑19栋','韵苑20栋','韵苑21栋','韵苑22栋',
+'韵苑23栋','韵苑24栋','韵苑25栋','韵苑26栋',
+'韵苑28栋'];
+
+var yunyuanyiqi=['学苑楼','韵苑10栋',
+'韵苑11栋','韵苑12栋','韵苑1栋','韵苑27栋',
+'韵苑2栋','韵苑3栋','韵苑4栋','韵苑5栋',
+'韵苑6栋','韵苑7栋','韵苑8栋','韵苑9栋'];
+
+var zisong=['紫菘10栋','紫菘11栋',
+'紫菘12栋','紫菘13栋','紫菘14栋',
+'紫菘1栋','紫菘2栋','紫菘3栋','紫菘4栋',
+'紫菘5栋','紫菘6栋','紫菘7栋','紫菘8栋',
+'紫菘9栋'];
+
+//清空building
+function clear()
+{
+ var building = document.getElementById('building');
+ var length = building.length;
+ for (var j=length-1; j>=0; j--)
+ {
+  building.options.remove(j);
+ }
+}
+
+//选取配套值
+function selectV()
+{
+ var building = document.getElementById('building');
+ var key = document.getElementById('area').value;
+
+ clear();
+ if (key=="东区")
+ {
+  /*拷贝中相关记录到building中*/
+  for (var i=0;i<dongqu.length ;i++ )
+  {
+   var str = dongqu[i];
+   var building_option = document.createElement("OPTION");
+   building.options.add(building_option);
+   building_option.innerText = str;
+   building_option.value = str;
+  }
+}else  if (key=="西区")
+ {
+  /*拷贝中相关记录到building中*/
+  for (var i=0;i<xiqu.length ;i++ )
+  {
+   var str = xiqu[i];
+   var building_option = document.createElement("OPTION");
+   building.options.add(building_option);
+   building_option.innerText = str;
+   building_option.value = str;
+  }
+}else  if (key=="韵苑二期")
+ {
+  /*拷贝中相关记录到building中*/
+  for (var i=0;i<yunyuanerqi.length ;i++ )
+  {
+   var str = yunyuanerqi[i];
+   var building_option = document.createElement("OPTION");
+   building.options.add(building_option);
+   building_option.innerText = str;
+   building_option.value = str;
+  }
+}
+else  if (key=="韵苑一期")
+ {
+  /*拷贝中相关记录到building中*/
+  for (var i=0;i<yunyuanyiqi.length ;i++ )
+  {
+   var str = yunyuanyiqi[i];
+   var building_option = document.createElement("OPTION");
+   building.options.add(building_option);
+   building_option.innerText = str;
+   building_option.value = str;
+  }
+}
+else  if (key=="紫菘")
+ {
+  /*拷贝中相关记录到building中*/
+  for (var i=0;i<zisong.length ;i++ )
+  {
+   var str = zisong[i];
+   var building_option = document.createElement("OPTION");
+   building.options.add(building_option);
+   building_option.innerText = str;
+   building_option.value = str;
+  }
+}
+}
+</script>
+</head>
+<body>
+	<div class="container" style="padding-top:10px;">
+
+	<form class="form-horizontal" method="post" action="">
+	{%csrf_token%}
+  {% if form.errors %}
+  <div class="alert alert-danger" role="alert">
+    {{form.area.errors}}
+    {{form.building.errors}}
+    {{form.room.errors}}
+    {%if form.non_field_errors%}
+    {{form.non_field_errors}}
+    {% endif %}
+  </div>
+  {% endif %}
+	  <div class="form-group">
+	    <label for="area" class="col-sm-2 control-label">区域</label>
+	    <div class="col-sm-10">
+	    	<select name="area" id="area" class="form-control" onChange="selectV()">
+	    		<option value="-1">--请选择--</option>
+  				<option value="东区">东区</option>
+  				<option value="西区">西区</option>
+  				<option value="韵苑二期">韵苑二期</option>
+  				<option value="韵苑一期">韵苑一期</option>
+  				<option value="紫菘">紫菘</option>
+			</select>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label for="building" class="col-sm-2 control-label">楼栋</label>
+	    <div class="col-sm-10">
+	    	<select name="building" id="building" class="form-control">
+			</select>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label for="room" class="col-sm-2 control-label">寝室号</label>
+	    <div class="col-sm-10">
+	      <input type="text" class="form-control" name="room" id="room" placeholder="123">
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <div class="col-sm-offset-2 col-sm-10">
+	      <button type="submit" class="btn btn-primary btn-lg">绑定</button>
+	    </div>
+	  </div>
+	</form>
+	</div>
+</body>
+</html>
