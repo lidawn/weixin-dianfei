@@ -3,7 +3,7 @@
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 import os
-import sae.const
+#import sae.const
 #print sae.const.MYSQL_DB
 BASE = os.path.dirname(os.path.dirname(__file__))
 ADMINS = (
@@ -14,13 +14,13 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': sae.const.MYSQL_DB,                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': os.path.join(BASE,'db/userinfo.db'),                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
-        'USER': sae.const.MYSQL_USER,
-        'PASSWORD': sae.const.MYSQL_PASS,
-        'HOST': sae.const.MYSQL_HOST,                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': sae.const.MYSQL_PORT,                      # Set to empty string for default.
+        #'USER': sae.const.MYSQL_USER,
+        #'PASSWORD': sae.const.MYSQL_PASS,
+        #'HOST': sae.const.MYSQL_HOST,                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        #'PORT': sae.const.MYSQL_PORT,                      # Set to empty string for default.
     }
 }
 
@@ -132,6 +132,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 )
 
+#APPEND_SLASH=False
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
 # the site admins on every HTTP 500 error when DEBUG=False.

@@ -14,7 +14,7 @@ TOKEN = "dianfei521lidawn4"
 res_data = {}
 
 def help():
-	'''1.绑定寝室请回复: 绑定\n  绑定后直接回复任意内容查询寝室电费\n2.解除绑定请回复: 解除\n3.如找不到以上提示请回复: 帮助\n4.反馈建议请点击:<a href="http://www.qq.com">反馈建议</a>'''
+	'''1.绑定寝室请回复: 绑定\n  绑定后直接回复任意内容查询寝室电费\n2.解除绑定请回复: 解除\n3.如找不到以上提示请回复: 帮助\n4.反馈建议请点击:<a href="http://form.mikecrm.com/BhpHew">反馈建议</a>'''
 
 def checkSignature(request):
 	global TOKEN
@@ -117,7 +117,7 @@ def responseMsg(request):
     			response = help.__doc__
     		elif i == 4:
     			#TODO
-    			response = '反馈建议请点击<a href=\"http://www.baidu.com\">反馈建议</a>'
+    			response = '反馈建议请点击<a href=\"http://form.mikecrm.com/BhpHew\">反馈建议</a>'
     		elif i == 5:
     			res_data = crawler_dianfei.crawler_once(area,building,room)
     			response = '您绑定的寝室号：%s\n=============\n最后抄表时间：%s\n剩余电量:%s' \
