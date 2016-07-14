@@ -105,13 +105,13 @@ def responseMsg(request):
     		building = user.louhao.encode("utf-8")
     		room = str(user.fangjian)
     		if i == 1:
-    			response = '您已绑定(%s),需要重新绑定请点击<a href=\"http://4.dianfei521.sinaapp.com/bound/?wid=%s\">绑定寝室</a>' \
+    			response = '您已绑定(%s),需要重新绑定请点击<a href=\"http://m1540057b2.iask.in/bound/?wid=%s\">绑定寝室</a>' \
     			% (area+building+room ,weixin_id)
     		elif i == 2:
     			#仅修改is_bounded
     			user.is_bounded = False
     			user.save()
-    			response = '已帮您解绑(%s),需要重新绑定请点击<a href=\"http://4.dianfei521.sinaapp.com/bound/?wid=%s\">绑定寝室</a>' \
+    			response = '已帮您解绑(%s),需要重新绑定请点击<a href=\"http://m1540057b2.iask.in/bound/?wid=%s\">绑定寝室</a>' \
     			% (area+building+room ,weixin_id)
     		elif i == 3:
     			response = help.__doc__
@@ -130,7 +130,7 @@ def responseMsg(request):
     			if not is_user_exist:
     				user = User(weixin_id=weixin_id,quyu="1",louhao="1",fangjian="1",is_bounded=False)
     				user.save()
-    			response = '绑定寝室请点击<a href=\"http://4.dianfei521.sinaapp.com/bound/?wid=%s\">绑定寝室</a>'\
+    			response = '绑定寝室请点击<a href=\"http://m1540057b2.iask.in/bound/?wid=%s\">绑定寝室</a>'\
     			% weixin_id
 
     		elif i == 2 or i==3 or i==5 :
