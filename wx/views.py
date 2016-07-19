@@ -131,17 +131,27 @@ def responseMsg(request):
 				res_data = crawler_dianfei.crawler_detail(area,building,room)
 				li = res_data.get('chao_biao_ming_xi')
 				chao_biao_ming_xi = ''
-				for item in li:
-					chao_biao_ming_xi += item.get('shu_ju') + ' | ' + item.get('shi_jian')+'\n'
-
-				response = '''您绑定的寝室号：%s\n===================
+				if li is None:
+					chao_biao_ming_xi = '未查询到抄表明细'
+				else:
+					for item in li:
+						chao_biao_ming_xi += item.get('shu_ju') + ' | ' + item.get('shi_jian')+'\n'
+				if res_data.get('gou_dian_ming_xi') is None:
+					response = '''您绑定的寝室号：%s\n===================
 最近7天抄表：\n-------------------\n数据 | 时间\n-------------------\n%s===================
 最近购电明细：\n-------------------\n%s\n===================\n如有疑问，请输入：帮助''' \
-				% (area+building+room,
-				chao_biao_ming_xi.encode('utf-8'),
-				'电量: '+res_data.get('gou_dian_ming_xi').get('chong_zhi').encode('utf-8')\
-				+'\n电费: '+res_data.get('gou_dian_ming_xi').get('dian_fei').encode('utf-8')\
-				+'\n时间: '+res_data.get('gou_dian_ming_xi').get('shi_jian').encode('utf-8') )
+					% (area+building+room,
+					chao_biao_ming_xi.encode('utf-8'),
+					'近一月无购电明细' )
+				else:
+					response = '''您绑定的寝室号：%s\n===================
+	最近7天抄表：\n-------------------\n数据 | 时间\n-------------------\n%s===================
+	最近购电明细：\n-------------------\n%s\n===================\n如有疑问，请输入：帮助''' \
+					% (area+building+room,
+					chao_biao_ming_xi.encode('utf-8'),
+					'电量: '+res_data.get('gou_dian_ming_xi').get('chong_zhi').encode('utf-8')\
+					+'\n电费: '+res_data.get('gou_dian_ming_xi').get('dian_fei').encode('utf-8')\
+					+'\n时间: '+res_data.get('gou_dian_ming_xi').get('shi_jian').encode('utf-8') )
 				
 		else:
 			#未绑定用户，消息类型：1.绑定 2.3.5.6 帮助 4.反馈 

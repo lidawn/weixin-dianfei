@@ -113,20 +113,26 @@ def crawler_detail(programId,txtyq,Txtroom):
 		resp = requests.post(url,headers=headers,data=values_3)
 		content = BS(resp.content)
 		#gou_dian_ming_xi
-		gou_dian_ming_xi_tds = content.find('table',{'id':'GridView1'}).find_all('td')
-		gou_dian_ming_xi['chong_zhi'] = gou_dian_ming_xi_tds[0].string
-		gou_dian_ming_xi['dian_fei'] = gou_dian_ming_xi_tds[1].string
-		gou_dian_ming_xi['shi_jian'] = gou_dian_ming_xi_tds[2].string
-		res_data['gou_dian_ming_xi'] = gou_dian_ming_xi
+		try:
+			gou_dian_ming_xi_tds = content.find('table',{'id':'GridView1'}).find_all('td')
+			gou_dian_ming_xi['chong_zhi'] = gou_dian_ming_xi_tds[0].string
+			gou_dian_ming_xi['dian_fei'] = gou_dian_ming_xi_tds[1].string
+			gou_dian_ming_xi['shi_jian'] = gou_dian_ming_xi_tds[2].string
+			res_data['gou_dian_ming_xi'] = gou_dian_ming_xi
+		except:
+			res_data['gou_dian_ming_xi'] = None
 		#chao_biao_ming_xi
-		chao_biao_ming_xi_tds = content.find('table',{'id':'GridView2'}).find_all('td')
-		#print chao_biao_ming_xi_tds
-		for j in range(0,14,2):
-			chao_biao = {}
-			chao_biao['shu_ju'] = chao_biao_ming_xi_tds[j].string
-			chao_biao['shi_jian'] = chao_biao_ming_xi_tds[j+1].string
-			chao_biao_ming_xi.append(chao_biao)
-		res_data['chao_biao_ming_xi'] = chao_biao_ming_xi
+		try:
+			chao_biao_ming_xi_tds = content.find('table',{'id':'GridView2'}).find_all('td')
+			#print chao_biao_ming_xi_tds
+			for j in range(0,14,2):
+				chao_biao = {}
+				chao_biao['shu_ju'] = chao_biao_ming_xi_tds[j].string
+				chao_biao['shi_jian'] = chao_biao_ming_xi_tds[j+1].string
+				chao_biao_ming_xi.append(chao_biao)
+			res_data['chao_biao_ming_xi'] = chao_biao_ming_xi
+		except:
+			res_data['chao_biao_ming_xi'] = None
 		#print res_data
 		#pattern = re.compile(r'name=\"TextBox2\"?.*value=\"(.*)\" readonly=',re.I)
 	except Exception,e:
